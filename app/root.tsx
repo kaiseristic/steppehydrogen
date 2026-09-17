@@ -9,12 +9,15 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteLoaderData,
+  useLocation,
 } from 'react-router';
 import type {Route} from './+types/root';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import portfolioStyles from '~/styles/portfolio-sections.css?url';
+import customizerStyles from '~/styles/customizer.css?url';
 import {PageLayout} from './components/PageLayout';
 
 export type RootLoader = typeof loader;
@@ -62,6 +65,8 @@ export function links() {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'stylesheet', href: portfolioStyles},
+    {rel: 'stylesheet', href: customizerStyles},
   ];
 }
 
@@ -151,6 +156,8 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link rel="stylesheet" href={portfolioStyles}></link>
+        <link rel="stylesheet" href={customizerStyles}></link>
         <Meta />
         <Links />
       </head>
@@ -165,6 +172,11 @@ export function Layout({children}: {children?: React.ReactNode}) {
 
 export default function App() {
   const data = useRouteLoaderData<RootLoader>('root');
+  const location = useLocation();
+
+  if (location.pathname.startsWith('/customizer')) {
+    return <Outlet />;
+  }
 
   if (!data) {
     return <Outlet />;

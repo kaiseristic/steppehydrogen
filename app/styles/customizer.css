@@ -1,0 +1,187 @@
+/* Shopify Theme Customizer Layout & Chrome Styles */
+
+.shopify-customizer-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #0b0b0f;
+  color: #e4e4e7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Customizer Top Navigation Bar */
+.shopify-customizer-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  background: #121217;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 16px;
+  z-index: 50;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.sc-topbar-left,
+.sc-topbar-center,
+.sc-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sc-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #a1a1aa;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.sc-back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.sc-page-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f4f4f5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sc-tag-live {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: #22c55e;
+  color: #052e16;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.sc-status-pill {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sc-status-pill.saved {
+  color: #4ade80;
+}
+
+.sc-status-pill.unsaved {
+  color: #fbbf24;
+}
+
+.sc-publish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #008060; /* Authentic Shopify Green */
+  color: #ffffff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sc-publish-btn:hover {
+  background: #006e52;
+  box-shadow: 0 4px 12px rgba(0, 128, 96, 0.35);
+}
+
+.sc-reset-btn {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sc-reset-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Customizer Body */
+.shopify-customizer-body {
+  flex-grow: 1;
+  position: relative;
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
+
+/* Puck Overrides to Match Shopify Admin Theme Customizer */
+.shopify-customizer-body .Puck,
+.shopify-customizer-body [class*="_PuckLayout_"],
+.shopify-customizer-body [class*="_Puck_"] {
+  height: 100% !important;
+}
+
+/* Ensure canvas background displays dark preview */
+.shopify-customizer-body [class*="_PuckCanvas-frame_"] {
+  background: #0a0a0c !important;
+}
+
+/* Floating customizer launcher for preview/home */
+.sc-floating-launcher {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #18181b;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-floating-launcher:hover {
+  background: #27272a;
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.sc-floating-icon {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+}

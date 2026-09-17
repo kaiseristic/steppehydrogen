@@ -1,17 +1,9 @@
-import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
-import {
-  type CartViewPayload,
-  useAnalytics,
-  useOptimisticCart,
-} from '@shopify/hydrogen';
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
+import {NavLink} from 'react-router';
+import type {HeaderQuery} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 
 interface HeaderProps {
   header: HeaderQuery;
-  cart: Promise<CartApiQueryFragment | null>;
-  isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
 }
 
@@ -19,8 +11,6 @@ type Viewport = 'desktop' | 'mobile';
 
 export function Header({
   header,
-  isLoggedIn,
-  cart,
   publicStoreDomain,
 }: HeaderProps) {
   const {shop, menu} = header;
@@ -35,7 +25,7 @@ export function Header({
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas />
     </header>
   );
 }
@@ -95,22 +85,11 @@ export function HeaderMenu({
   );
 }
 
-function HeaderCtas({
-  isLoggedIn,
-  cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+function HeaderCtas() {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
       <SearchToggle />
-      <CartToggle cart={cart} />
     </nav>
   );
 }
@@ -136,45 +115,6 @@ function SearchToggle() {
   );
 }
 
-function CartBadge({count}: {count: number}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
-
-  return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        } as CartViewPayload);
-      }}
-    >
-      Cart <span aria-label={`(items: ${count})`}>{count}</span>
-    </a>
-  );
-}
-
-function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
-  return (
-    <Suspense fallback={<CartBadge count={0} />}>
-      <Await resolve={cart}>
-        <CartBanner />
-      </Await>
-    </Suspense>
-  );
-}
-
-function CartBanner() {
-  const originalCart = useAsyncValue() as CartApiQueryFragment | null;
-  const cart = useOptimisticCart(originalCart);
-  return <CartBadge count={cart?.totalQuantity ?? 0} />;
-}
-
 const FALLBACK_HEADER_MENU = {
   id: 'gid://shopify/Menu/199655587896',
   items: [
@@ -194,15 +134,6 @@ const FALLBACK_HEADER_MENU = {
       title: 'Blog',
       type: 'HTTP',
       url: '/blogs/journal',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609566264',
-      resourceId: null,
-      tags: [],
-      title: 'Policies',
-      type: 'HTTP',
-      url: '/policies',
       items: [],
     },
     {

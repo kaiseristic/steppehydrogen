@@ -8,7 +8,6 @@ import {
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
@@ -102,11 +101,6 @@ export default function Product() {
       <ProductImage image={selectedVariant?.image} />
       <div className="product-main">
         <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
         <ProductForm
           productOptions={productOptions}
           selectedVariant={selectedVariant}

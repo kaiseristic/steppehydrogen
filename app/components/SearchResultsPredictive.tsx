@@ -1,5 +1,5 @@
 import {Link, useFetcher, type Fetcher} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 import React, {useRef, useEffect} from 'react';
 import {
   getEmptyPredictiveSearchResult,
@@ -213,7 +213,6 @@ function SearchResultsPredictiveProducts({
             term: term.current,
           });
 
-          const price = product?.selectedOrFirstAvailableVariant?.price;
           const image = product?.selectedOrFirstAvailableVariant?.image;
           return (
             <li className="predictive-search-result-item" key={product.id}>
@@ -228,7 +227,6 @@ function SearchResultsPredictiveProducts({
                 )}
                 <div>
                   <p>{product.title}</p>
-                  <small>{price && <Money data={price} />}</small>
                 </div>
               </Link>
             </li>

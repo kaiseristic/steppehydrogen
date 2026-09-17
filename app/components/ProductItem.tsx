@@ -1,9 +1,8 @@
 import {Link} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 import type {
   ProductItemFragment,
   CollectionItemFragment,
-  RecommendedProductFragment,
 } from 'storefrontapi.generated';
 import {useVariantUrl} from '~/lib/variants';
 
@@ -13,8 +12,7 @@ export function ProductItem({
 }: {
   product:
     | CollectionItemFragment
-    | ProductItemFragment
-    | RecommendedProductFragment;
+    | ProductItemFragment;
   loading?: 'eager' | 'lazy';
 }) {
   const variantUrl = useVariantUrl(product.handle);
@@ -36,9 +34,6 @@ export function ProductItem({
         />
       )}
       <h4>{product.title}</h4>
-      <small>
-        <Money data={product.priceRange.minVariantPrice} />
-      </small>
     </Link>
   );
 }
